@@ -2,7 +2,7 @@
 name: deepseek-fable
 description: 为 DeepSeek 模型编写和校准 Fable 式 system prompt，覆盖回答纪律、前端质感、后端模式、系统化排障与不过度防御，并内置 19 个可加载 skill。用于给 deepseek-flash / deepseek-v4-pro 写或调 system prompt、把其他模型的提示词移植到 DeepSeek、修复回答啰嗦或靠猜修 bug，或在 DeepSeek Agent 中动态调用 docx/pdf/pptx/xlsx、MCP、前端设计等技能。
 metadata:
-  version: "1.4.0"
+  version: "1.5.0"
   tags: deepseek, system-prompt, behavior, frontend, backend, debugging, skills
   dependencies: "Python 3.9+ for scripts; standard library only; no network. Optional bundled skills need Node/npm, LibreOffice, Poppler, pandoc, Playwright, or Python document libraries as listed in references/document-workflows.md. Behavior probes need a DeepSeek API key and network."
 ---
@@ -191,4 +191,5 @@ python scripts/fable_prompt.py check assets/deepseek-fable.system.md --allow-pla
 - **显式优先级**：`用户当前消息 > 项目/记忆中的偏好 > 默认风格`；冲突处写明谁赢。
 - **压缩而非堆叠**：主模板约 13 KB，只保留判定点；细节进 references，按需加载。
 - **验证分级**：默认只做截图、正常流程、构建、静态检查；测试、探针、冒烟、压测只在用户明确要求时进行。过度验证和过度防御一样，会消耗用户时间并掩盖真实问题。
+- **预算无上限**：部署声明 unlimited 时，token 与算力不设上限，不因省 token 省略证据、边界情况和交付细节；但仍受长度纪律与验证分级约束，不主动加测试。
 - **技能外挂**：19 个内置 skill 是任务级外挂，不替代七条锚定；加载前先读完整 `SKILL.md`，加载后按其流程执行，冲突时回到优先级。
